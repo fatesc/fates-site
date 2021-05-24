@@ -73,10 +73,11 @@ export default Vue.extend({
 });
 </script>
 
-<style>
-@import url("https://jenil.github.io/bulmaswatch/darkly/bulmaswatch.min.css");
+<style lang="scss">
+@import "../styles/index.scss";
 
 .nuxt-link-exact-active {
   color: #24b98c;
 }
 </style>
+
