@@ -9,14 +9,14 @@
       </b-message>
       <div class="columns buttons is-mobile">
         <b-button class="column is-medium is-4 is-offset-2" tag="NuxtLink" icon-right="home" to="/">Home</b-button>
-        <b-button class="column is-medium is-4" tag="NuxtLink" icon-right="arrow-left" :to="this.$nuxt.context.from ? this.$nuxt.context.from.path : '/'">Return</b-button>
+        <b-button class="column is-medium is-4" tag="NuxtLink" icon-right="arrow-left" :to="from ? from.path : '/'">Return</b-button>
       </div>
     </div>
   </section>
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from 'vue'
+import Vue, { VueConstructor, ComputedOptions } from 'vue'
 export default (Vue as VueConstructor<
   Vue & {
     pageNotFound: string
@@ -31,6 +31,11 @@ export default (Vue as VueConstructor<
     error: {
       type: Object,
       default: null
+    }
+  },
+  computed: {
+    from() {
+      return (this as any).$nuxt.context.from
     }
   }
 })

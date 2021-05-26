@@ -5,24 +5,23 @@
         <p class="card-header-title has-text-grey">
           {{ title }}
         </p>
+        <b-icon
+          :icon="icon"
+          size="is-medium"
+          :type="icontype || 'is-primary'"
+        />
       </header>
       <div class="card-content">
         <div class="content has-text-centered">
-          <b-icon
-            :icon="icon"
-            size="is-medium"
-            type="is-primary"
-          />
+          <slot/>
         </div>
       </div>
       <footer v-if="footer" class="card-footer">
         <div class="card-footer-item">
           <span>
-            <slot>
-              <p class="has-text-grey">
-                {{ footer }}
-              </p>
-            </slot>
+            <p class="has-text-grey">
+              {{ footer }}
+            </p>
           </span>
         </div>
       </footer>
@@ -39,7 +38,11 @@ export default {
     },
     icon: {
       type: String,
-      required: true
+      required: false
+    },
+    icontype: {
+      type: String,
+      required: false,
     },
     footer: {
       type: String,

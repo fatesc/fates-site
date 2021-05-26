@@ -12,7 +12,7 @@
             <b-tooltip :label="item.tooltip" position="is-bottom" type="is-dark">{{ item.title }}</b-tooltip>
           </b-navbar-item>
           <b-navbar-dropdown v-else :label="item.title" :collapsible="true" :key="item.title">
-            <b-navbar-item tag="NuxtLink" v-for="item2 in item.items" :key="item2.title" :to="{ path: item2.to }">
+            <b-navbar-item tag="NuxtLink" v-for="item2 in item.items" :key="item2.title" :to="{ path: item.to + item2.to }">
               <b-tooltip :label="item2.tooltip || item2.title" position="is-left" type="is-dark">{{ item2.title }}</b-tooltip>
             </b-navbar-item>
           </b-navbar-dropdown>
@@ -51,14 +51,13 @@ export default Vue.extend({
         {
           dropdown: true,
           title: "Tools",
-          tooltip: "lua tools page",
           to: "/tools",
           items: [{
             title: "lol",
-            to: "lol"
+            to: "/lol"
           },{
             title: "lol2",
-            to: "lol2"
+            to: "/lol2"
           }]
         }
       ],
@@ -77,7 +76,7 @@ export default Vue.extend({
 @import "../styles/index.scss";
 
 .nuxt-link-exact-active {
-  color: #24b98c;
+  color: $link;
 }
 
 #Gradient {

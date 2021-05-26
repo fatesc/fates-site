@@ -1,7 +1,8 @@
 <template>
   <section class="section">
     <h3 class="title is-3">Scripts Page</h3>
-    <div class="columns">
+    <div class="columns is-mobile">
+
     </div>
   </section>
 </template>
