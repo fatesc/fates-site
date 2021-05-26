@@ -1,9 +1,9 @@
 <template>
   <section>
-    <b-navbar :fixed-bottom="bottom">
+    <b-navbar :fixed-bottom="bottom" :shadow="true">
       <template #brand>
         <b-navbar-item tag="NuxtLink" :to="{ path: '/' }">
-          <h4 class="title is-4">fates site</h4>
+          <h4 class="title is-4" id="Gradient">fates site</h4>
         </b-navbar-item>
       </template>
       <template #start>
@@ -78,6 +78,23 @@ export default Vue.extend({
 
 .nuxt-link-exact-active {
   color: #24b98c;
+}
+
+#Gradient {
+  background-image: linear-gradient(to right, #3ea1db 20%, #5d34ec 30%, #3ea1db 70%);
+  background-clip: text;
+  background-size: 400% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+  animation: animateGradient 15s ease-in-out infinite alternate;
+}
+
+@keyframes animateGradient {
+  to {
+    background-position: 400%;
+  }
 }
 </style>
 
