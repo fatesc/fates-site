@@ -15,7 +15,7 @@
 import Vue from 'vue'
 export default Vue.extend({
   head: {
-    title: "fates site - Home",
+    title: "Home | fates site",
     meta: [{
       name: "description",
       content: "home page for fate0.xyz"

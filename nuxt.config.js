@@ -11,6 +11,7 @@ export default {
       { hid: 'theme-color', name: 'theme-color', content: '#53adcb' }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [{ rel: 'stylesheet', href: 'https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css' }]
   },
 
   css: [],

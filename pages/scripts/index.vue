@@ -1,10 +1,12 @@
 <template>
-  <section class="section">
-    <h3 class="title is-3">Scripts Page</h3>
-    <div class="columns is-mobile">
-
-    </div>
-  </section>
+  <div>
+    <section class="section">
+      <h2 class="title is-2">Scripts Page</h2>
+    </section>
+    <section class="section">
+      <h4 class="title is-4" v-for="i in 4" :key="i"><a href="/scripts/fates-admin" >fates admin</a></h4>
+    </section>
+  </div>
 </template>
 
 <script lang="ts">
@@ -13,7 +15,7 @@ import Card from "~/components/Card.vue";
 
 export default Vue.extend({
   head: {
-    title: "fates site - Scripts",
+    title: "Scripts | fates site",
     meta: [{
       name: "description",
       content: "scripts page for my site"

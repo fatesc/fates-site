@@ -8,8 +8,8 @@
         {{ error.message }}
       </b-message>
       <div class="columns buttons is-mobile">
-        <b-button class="column is-medium is-4 is-offset-2" tag="NuxtLink" icon-right="home" to="/">Home</b-button>
-        <b-button class="column is-medium is-4" tag="NuxtLink" icon-right="arrow-left" :to="from ? from.path : '/'">Return</b-button>
+        <b-button class="column is-medium is-4 is-offset-2" tag="NuxtLink" icon-pack="fas" icon-right="house" to="/">Home</b-button>
+        <b-button class="column is-medium is-4" tag="NuxtLink" icon-pack="fas" icon-right="arrow-left" :to="from ? from.path : '/'">Return</b-button>
       </div>
     </div>
   </section>
