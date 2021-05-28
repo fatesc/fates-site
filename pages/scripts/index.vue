@@ -1,7 +1,7 @@
 <template>
   <div>
     <section class="section">
-      <h2 class="title is-2">Scripts Page</h2>
+      <h2 class="title is-2"><u>Scripts Page</u></h2>
     </section>
     <section class="section">
       <h4 class="title is-4" v-for="i in 4" :key="i"><a href="/scripts/fates-admin" >fates admin</a></h4>

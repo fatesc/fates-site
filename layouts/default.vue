@@ -12,6 +12,9 @@
             <b-tooltip :label="item.tooltip" position="is-bottom" type="is-dark">{{ item.title }}</b-tooltip>
           </b-navbar-item>
           <b-navbar-dropdown v-else :label="item.title" :collapsible="true" :key="item.title">
+            <b-navbar-item tag="NuxtLink" :to="{ path: item.to }">
+              <b-tooltip :label="item.tooltip || item.title" position="is-left" type="is-dark">{{ item.title }}</b-tooltip>
+            </b-navbar-item>
             <b-navbar-item tag="NuxtLink" v-for="item2 in item.items" :key="item2.title" :to="{ path: item.to + item2.to }">
               <b-tooltip :label="item2.tooltip || item2.title" position="is-left" type="is-dark">{{ item2.title }}</b-tooltip>
             </b-navbar-item>
@@ -47,6 +50,11 @@ export default Vue.extend({
           title: "Scripts",
           tooltip: "scripts page for the scripts that i've made",
           to: "/scripts",
+        },
+        {
+          title: "Chat",
+          to: "/chat",
+          tooltip: "connect to global chat used in fates admin to talk to people"
         },
         {
           dropdown: true,
