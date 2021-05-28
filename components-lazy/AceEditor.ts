@@ -18,18 +18,28 @@ export default Vue.extend({
     },
     theme: {
       type: String,
-      default: "Tomorrow-night"
+      default: "tomorrow_night"
     },
     lang: {
       type: String,
-      default: "Lua"
+      default: "lua"
     },
     options: {
       type: Object,
-      default: {}
+      default: {
+        enableBasicAutocompletion: true,
+        enableLiveAutocompletion: true,
+        enableSnippets: true,
+        showPrintMargin: false,
+        highlightActiveLine: true,
+
+      }
     },
     editor: {
       type: AceAjax.Editor,
+    },
+    editorVal: {
+      default: ''
     }
   },
   data() {
@@ -42,7 +52,15 @@ export default Vue.extend({
     width() {
       this.$nextTick(() => {
         this.editor.resize();
-      })
+      });
+    },
+    height() {
+      this.$nextTick(() => {
+        this.editor.resize();
+      });
+    },
+    value() {
+      this.editorVal = this.value
     }
   },
 
@@ -61,10 +79,17 @@ export default Vue.extend({
     const editor = this.editor
     this.$emit("init", editor);
 
+    require("brace/ext/language_tools");
+    require(`brace/mode/${this.lang}`);
+    require(`brace/theme/${this.theme}`);
+
+
     editor.getSession().setMode(`ace/mode/${this.lang}`)
     editor.setTheme(`ace/theme/${this.theme}`);
 
-    this.editor.setValue(this.value ?? "");
-    this.editor.setOptions(this.options ?? {});
+    editor.setValue(this.value ?? "");
+    editor.setOptions(this.options ?? {});
+
+    editor.clearSelection();
   },
 })
