@@ -37,17 +37,12 @@
 </template>
 
 <script lang="ts">
-import Vue, { VueConstructor } from "vue";
+import Vue from "vue";
 import Card from "~/components/Card.vue";
 import { getCommands } from "~/Utils/Utils";
 import { Command } from "~/Utils/types";
-import { NuxtAxiosInstance } from "@nuxtjs/axios";
 
-export default (Vue as VueConstructor<
-  Vue & {
-    $axios: NuxtAxiosInstance
-  }
->).extend({
+export default Vue.extend({
   head: {
     title: "fates admin | fates site",
     meta: [{
