@@ -37,12 +37,18 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 import Card from "~/components/Card.vue";
 import { getCommands } from "~/utils/Utils";
 import { Command } from "~/utils/types";
 
-export default Vue.extend({
+export default (Vue as VueConstructor<
+  Vue & {
+    commands: any[],
+    oldcommands: any[],
+    search: string
+  }
+>).extend({
   head: {
     title: "fates admin | fates site",
     meta: [{
