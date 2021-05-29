@@ -1,20 +1,19 @@
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 import AceAjax, * as ace from "brace";
 
-export default Vue.extend({
+export default (Vue as VueConstructor<
+  Vue & {
+    editorVal: string,
+    editor: AceAjax.Editor,
+    width: number,
+    height: number
+  }
+>).extend({
   name: "AceEditor",
   props: {
     value: {
       type: String,
       default: 'print("Hello World");'
-    },
-    width: {
-      type: [String, Number],
-      default: "600"
-    },
-    height: {
-      type: [String, Number],
-      default: "100"
     },
     theme: {
       type: String,
@@ -25,45 +24,62 @@ export default Vue.extend({
       default: "lua"
     },
     options: {
-      type: Object,
-      default: {
-        enableBasicAutocompletion: true,
-        enableLiveAutocompletion: true,
-        enableSnippets: true,
-        showPrintMargin: false,
-        highlightActiveLine: true,
-
+      type: Function,
+      default() {
+        return {
+          enableBasicAutocompletion: true,
+          enableLiveAutocompletion: true,
+          enableSnippets: true,
+          showPrintMargin: false,
+          highlightActiveLine: true,
+        }
       }
     },
-    editor: {
-      type: AceAjax.Editor,
-    },
-    editorVal: {
-      default: ''
+    EditorInit: {
+      type: Function,
+      default() {
+        const box = document.getElementById("box");
+        window.addEventListener("resize", () => {
+          this.width = <number>box?.clientWidth
+          this.height = <number>box?.clientHeight
+        });
+        this.width = <number>box?.clientWidth
+        this.height = <number>box?.clientHeight
+      }
     }
   },
   data() {
     return {
       editor: null,
-      editorVal: ''
+      editorVal: '',
+      width: 600,
+      height: 600
     }
   },
   watch: {
     width() {
-      this.$nextTick(() => {
-        this.editor.resize();
-      });
+      this.editor.resize();
     },
     height() {
-      this.$nextTick(() => {
-        this.editor.resize();
-      });
+      this.editor.resize();
     },
     value() {
       this.editorVal = this.value
+      this.editor.setValue(this.value);
+    },
+    theme() {
+      require(`brace/theme/${this.theme}`);
+      this.editor.setTheme(`ace/theme/${this.theme}`);
+    },
+    lang() {
+      require(`brace/mode/${this.lang}`);
+      this.editor.getSession().setMode(`ace/mode/${this.lang}`);
     }
   },
-
+  beforeDestroy() {
+    this.editor.destroy();
+    this.editor.container.remove();
+  },
   render(createElement) {
     return createElement("div", {
       attrs: {
@@ -75,9 +91,10 @@ export default Vue.extend({
     })
   },
   mounted() {
-    this.editor = ace.edit(this.$el);
+    this.editor = ace.edit(<any>this.$el);
     const editor = this.editor
     this.$emit("init", editor);
+    editor.$blockScrolling = Infinity
 
     require("brace/ext/language_tools");
     require(`brace/mode/${this.lang}`);
@@ -88,8 +105,10 @@ export default Vue.extend({
     editor.setTheme(`ace/theme/${this.theme}`);
 
     editor.setValue(this.value ?? "");
-    editor.setOptions(this.options ?? {});
+    editor.setOptions(this.options() ?? {});
 
     editor.clearSelection();
+
+    this.EditorInit();
   },
 })

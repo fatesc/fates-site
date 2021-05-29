@@ -39,8 +39,8 @@
 <script lang="ts">
 import Vue from "vue";
 import Card from "~/components/Card.vue";
-import { getCommands } from "~/Utils/Utils";
-import { Command } from "~/Utils/types";
+import { getCommands } from "~/utils/Utils";
+import { Command } from "~/utils/types";
 
 export default Vue.extend({
   head: {
@@ -66,9 +66,8 @@ export default Vue.extend({
       oldcommands: []
     }
   },
-  async asyncData({ $axios }) {
-    const regx = /AddCommand\("(?<cmdName>\S+)",\ *(?<alias>{.*?}),\ *"(?<desc>.*?)"/gmi
-    const data: Command[] = getCommands(Array.from((await $axios.$get("https://raw.githubusercontent.com/fatesc/fates-admin/main/main.lua") as string)?.matchAll(regx)));
+  async asyncData(Context) {
+    const data = await getCommands(Context?.$axios);
     return { commands: data, oldcommands: data }
   },
   computed: {

@@ -4,7 +4,7 @@
     <p class="subtitle">some tools (mosly lua) that i use from time to time</p>
     <br>
     <ul>
-      <li class="list">a</li>
+      <li class="list"><NuxtLink to="/tools/lua-editor">Lua editor</NuxtLink></li>
     </ul>
   </section>
 </template>
