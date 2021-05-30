@@ -50,7 +50,7 @@ export default Vue.extend({
       SetEditorValue('print("Hello World");');
     },
     RemoveByteAndHex() {
-      const Script = GetEditorValue().replace(/(?<byte>\\\d*)/g, (str) => String.fromCharCode(parseInt(str.replace(/\\/,"")))).replace(/[^\w](?<hex>0x\d*)[^\w]/g, (str) => parseInt(str).toString());
+      const Script = GetEditorValue().replace(/(?<byte>\\\d*)/g, (str) => String.fromCharCode(parseInt(str.replace(/\\/,"")))).replace(/[^\w](?<hex>0x\d*)[?^\w]/g, (str) => str.charAt(0) + parseInt(str.slice(1)).toString());
       SetEditorValue(Script);
     }
   },
