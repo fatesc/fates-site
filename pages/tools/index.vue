@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import Vue from "Vue"
+import Vue from "vue";
 export default Vue.extend({
   head: {
     title: "Tools | fates site",
