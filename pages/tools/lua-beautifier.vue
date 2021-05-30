@@ -1,7 +1,7 @@
 <template>
   <section class="section">
     <h4 class="title is-4">Lua Editor</h4>
-    <p class="subtitle">execute lua (5.2) code</p>
+    <p class="subtitle">beautify, minify, uglify lua code</p>
     <div id="box">
       <client-only>
           <Editor ref="Editor" lang="lua" :value="val"/>
@@ -9,28 +9,30 @@
     </div>
     <br>
     <b-button @click="Reset">Reset</b-button>
-    <b-button @click="Exec">Execute</b-button>
+    <b-button @click="Beautify">Beautify</b-button>
+    <b-button @click="Minify">Minify</b-button>
+    <b-button @click="Uglify">Uglify</b-button>
   </section>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import { ExecuteCode, SetEditorValue } from "~/utils/Utils"
+import { BeautifyCode, ExecuteCode, MinifyCode, SetEditorValue, UglifyCode } from "~/utils/Utils"
 import { L } from "~/modules/lua";
 import { NuxtAxiosInstance } from "@nuxtjs/axios/types";
 
 export default Vue.extend({
   head: {
-    title: "Lua Editor | fates site",
+    title: "Lua Beautifier | fates site",
     meta: [{
       name: "description",
-      content: "execute lua (5.2) code"
+      content: "beautify, minify, uglify lua code"
     },{
       name: "og:description",
-      content: "execute lua (5.2) code"
+      content: "beautify, minify, uglify lua code"
     },{
       name: "og:title",
-      content: "fate0.xyz/tools/lua-editor"
+      content: "fate0.xyz/tools/lua-beautifier"
     }]
   },
   components: {
@@ -38,12 +40,26 @@ export default Vue.extend({
   },
   data() {
     return {
-      L
+      L,
+      options: {
+        RenameVariables: true,
+        RenameGlobals: false,
+        SolveMath: true,
+      }
     }
   },
   methods: {
     Exec() {
-      ExecuteCode(this.L)
+      ExecuteCode(L);
+    },
+    Beautify() {
+      BeautifyCode(this.options);
+    },
+    Minify() {
+      MinifyCode(this.options);
+    },
+    Uglify() {
+      UglifyCode(this.options);
     },
     Reset() {
       SetEditorValue('print("Hello World");');
@@ -54,7 +70,7 @@ export default Vue.extend({
     let code = (Context.query as typeof Context.params & { code: string })?.code
     if (code) {
       if (code.match(/^htt(p|ps):\/\//))
-        code = (await axios.get(code)).data;
+        code = (await axios.get(code)).data
       return { val: code.toString() }
     }
     return { val: null }

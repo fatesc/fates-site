@@ -28,7 +28,7 @@
       </b-field>
       <div class="container is-mobile">
         <Card v-for="(command, i) in commands" :key="command.name" class="is-4" :title="(i + 1) + '. ' + command.name">
-            <p class="has-text-white">Aliases: {{ command.aliases ? command.aliases.join(", ") : "none" }}</p>
+            <p class="has-text-white">Aliases: {{ command.aliases > 0 ? command.aliases.join(", ") : "none" }}</p>
             <p class="has-text-white">Description: {{ command.description }}</p>
         </Card>
       </div>
@@ -41,6 +41,7 @@ import Vue, { VueConstructor } from "vue";
 import Card from "~/components/Card.vue";
 import { getCommands } from "~/utils/Utils";
 import { Command } from "~/utils/types";
+import { NuxtAxiosInstance } from "@nuxtjs/axios/types";
 
 export default (Vue as VueConstructor<
   Vue & {
@@ -73,7 +74,7 @@ export default (Vue as VueConstructor<
     }
   },
   async asyncData(Context) {
-    const data = await getCommands(Context?.$axios);
+    const data = await getCommands((Context as typeof Context & { $axios: NuxtAxiosInstance }).$axios);
     return { commands: data, oldcommands: data }
   },
   computed: {
@@ -82,6 +83,6 @@ export default (Vue as VueConstructor<
       this.commands = this.commands.filter((command: Command) => command.name.toString().toLowerCase().indexOf(this.search.toLowerCase()) >= 0);
       return ((this as any).commands as Array<Command>).map(command => command.name);
     }
-  }
+  },
 })
 </script>

@@ -1,0 +1,6 @@
+{
+  "ignore": [
+    "**/lua.js",
+    "**/luamin.js"
+  ]
+}

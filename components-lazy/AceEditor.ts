@@ -1,5 +1,6 @@
 import Vue, { VueConstructor } from "vue";
 import AceAjax, * as ace from "brace";
+import { ExtendedNuxtApp } from "~/utils/types";
 
 export default (Vue as VueConstructor<
   Vue & {
@@ -96,19 +97,22 @@ export default (Vue as VueConstructor<
     this.$emit("init", editor);
     editor.$blockScrolling = Infinity
 
+    require("brace/ext/searchbox");
     require("brace/ext/language_tools");
     require(`brace/mode/${this.lang}`);
+    require(`brace/snippets/${this.lang}`);
     require(`brace/theme/${this.theme}`);
 
 
     editor.getSession().setMode(`ace/mode/${this.lang}`)
     editor.setTheme(`ace/theme/${this.theme}`);
 
-    editor.setValue(this.value ?? "");
+    editor.setValue(this.value ?? 'print("Hello World");');
     editor.setOptions(this.options() ?? {});
 
     editor.clearSelection();
 
     this.EditorInit();
+    (this.$nuxt as ExtendedNuxtApp).editor = this.editor
   },
 })

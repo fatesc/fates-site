@@ -61,11 +61,13 @@ export default Vue.extend({
           title: "Tools",
           to: "/tools",
           items: [{
-            title: "lol",
-            to: "/lol"
+            title: "Lua Editor",
+            to: "/lua-editor",
+            tooltip: "execute lua scripts"
           },{
-            title: "lol2",
-            to: "/lol2"
+            title: "Lua Beautifier",
+            tooltip: "beautify your lua scripts",
+            to: "/lua-beautifier"
           }]
         }
       ],
