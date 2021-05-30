@@ -10,12 +10,13 @@
     <br>
     <b-button @click="Reset">Reset</b-button>
     <b-button @click="Exec">Execute</b-button>
+    <b-button @click="RemoveByteAndHex">Remove Byte and Hexadecimals</b-button>
   </section>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import { ExecuteCode, SetEditorValue } from "~/utils/Utils"
+import { ExecuteCode, GetEditorValue, SetEditorValue } from "~/utils/Utils"
 import { L } from "~/modules/lua";
 import { NuxtAxiosInstance } from "@nuxtjs/axios/types";
 
@@ -47,6 +48,10 @@ export default Vue.extend({
     },
     Reset() {
       SetEditorValue('print("Hello World");');
+    },
+    RemoveByteAndHex() {
+      const Script = GetEditorValue().replace(/(?<byte>\\\d*)/g, (str) => String.fromCharCode(parseInt(str.replace(/\\/,"")))).replace(/(?<hex>0x\d*)/, (str) => parseInt(str).toString());
+      SetEditorValue(Script);
     }
   },
   async asyncData(Context) {
