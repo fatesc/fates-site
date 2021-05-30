@@ -42,9 +42,9 @@ export default Vue.extend({
     return {
       L,
       options: {
-        RenameVariables: true,
+        RenameVariables: false,
         RenameGlobals: false,
-        SolveMath: true,
+        SolveMath: false,
       }
     }
   },
