@@ -1,6 +1,7 @@
 import { NuxtAxiosInstance } from "@nuxtjs/axios";
 import { Command, ExtendedNuxtApp } from "./types";
 import { Beautify, Minify, Uglify, Options } from "~/modules/luamin";
+import { Editor } from "brace";
 
 export async function getCommands(axios: NuxtAxiosInstance): Promise<Command[]> {
   const descregx = /^((?<usage>[^\\\n]+)(?:\\n))?(?<desc>.*)$/gmi
@@ -43,6 +44,11 @@ export function ExecuteCode(L: any): void {
   }
 }
 
+export function GetEditor(): Editor {
+  const editor = (self.$nuxt as ExtendedNuxtApp)?.editor
+  return editor ?? null
+}
+
 export function GetEditorValue(): string {
   const editor = (self.$nuxt as ExtendedNuxtApp)?.editor
   if (editor) {
@@ -57,6 +63,18 @@ export function SetEditorValue(Value: string): void {
     editor.setValue(Value);
     editor.clearSelection();
   }
+}
+
+
+export function GetThemes(): string[] {
+  const files = [
+    "xcode", "vibrant_ink", "twilight", "tomorrow_night_eighties", "tomorrow_night_bright", "tomorrow_night_blue",
+    "tomorrow_night", "textmate", "terminal", "sqlserver", "solarized_light", "solarized_dark", "pastel_on_dark",
+    "mono_industrial", "monokai", "merbivore_soft", "merbivore", "kuroir", "kr_theme", "katzenmilch", "iplastic",
+    "idle_fingers", "gruvbox", "gob", "github", "eclipse", "dreamweaver", "dracula", "dawn", "crimson_editor",
+    "cobalt", "clouds_midnight", "clouds", "chrome", "chaos", "ambiance"
+  ].sort();
+  return files
 }
 
 export async function BeautifyCode(options: Options): Promise<void> {

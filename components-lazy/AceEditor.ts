@@ -24,6 +24,10 @@ export default (Vue as VueConstructor<
       type: String,
       default: "lua"
     },
+    fontSize: {
+      type: [String, Number],
+      default: "14"
+    },
     options: {
       type: Function,
       default() {
@@ -75,6 +79,9 @@ export default (Vue as VueConstructor<
     lang() {
       require(`brace/mode/${this.lang}`);
       this.editor.getSession().setMode(`ace/mode/${this.lang}`);
+    },
+    fontSize() {
+      this.editor.setFontSize(this.fontSize.toString() + "px");
     }
   },
   beforeDestroy() {
@@ -109,6 +116,7 @@ export default (Vue as VueConstructor<
 
     editor.setValue(this.value ?? 'print("Hello World");');
     editor.setOptions(this.options() ?? {});
+    editor.setFontSize(this.fontSize?.toString() ?? "14" + "px");
 
     editor.clearSelection();
 

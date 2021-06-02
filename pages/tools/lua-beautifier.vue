@@ -9,9 +9,7 @@
     </div>
     <br>
     <b-button @click="Reset">Reset</b-button>
-    <b-button @click="Beautify">Beautify</b-button>
-    <b-button @click="Minify">Minify</b-button>
-    <b-button @click="Uglify">Uglify</b-button>
+
   </section>
 </template>
 
@@ -52,15 +50,7 @@ export default Vue.extend({
     Exec() {
       ExecuteCode(L);
     },
-    Beautify() {
-      BeautifyCode(this.options);
-    },
-    Minify() {
-      MinifyCode(this.options);
-    },
-    Uglify() {
-      UglifyCode(this.options);
-    },
+
     Reset() {
       SetEditorValue('print("Hello World");');
     }
